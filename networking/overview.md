@@ -25,6 +25,6 @@ How the following “magical” things happen:
 - Top-down networking stack
     - [Application Layer](app-layer)
     - [Transport Layer](transport/transport)
-    - [Network Layer](network-layer)
+    - [Network Layer](network-layer/network-layer)
     - Link Layer
     - Physical Layer
