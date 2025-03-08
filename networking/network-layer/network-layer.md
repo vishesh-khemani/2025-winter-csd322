@@ -9,12 +9,11 @@ Recommended reading: Kurose chapters 4 and 5
     - [How To Choose The Outgoing Link?](#how-to-choose-the-outgoing-link)
     - [What's In The Datagram Header?](#whats-in-the-datagram-header)
       - [IPv4](#ipv4)
-        - [Layering Examples](#layering-examples)
-        - [Addressing](#addressing)
-      - [NAT](#nat)
-      - [IPv6](#ipv6)
-      - [Migration](#migration)
-  - [Control Plane](#control-plane)
+      - [Layering Examples](#layering-examples)
+      - [Addressing](#addressing)
+        - [CIDR](#cidr)
+        - [Address Allocation](#address-allocation)
+        - [Network Address Translation (NAT)](#network-address-translation-nat)
 
 
 ## What Does It Do?
@@ -159,7 +158,7 @@ Example forwarding table:
 - **Data**
   - typically, transport layer segment or network layer control msgs e.g. ICMP
 
-##### Layering Examples
+#### Layering Examples
 
 ![alt text](image-3.png)
 
@@ -186,12 +185,55 @@ Example forwarding table:
 
 </details>
 
-##### Addressing
+#### Addressing
 
-#### NAT
+- **Network interface**
+  - boundary between host/router and physical link
+- IP address for every network interface
+  - typically 1 for a host, many for a router
+- 32 bits or 4 bytes => $2^{32}$ possible IPs
+- Dotted-decimal notation e.g. 193.32.216.9
+- Each IP globally unique (except for IPs behind NATs)
 
-#### IPv6
+Example: one router interconnecting 7 hosts
+![alt text](image-4.png)
 
-#### Migration
+- 24-bits common prefix for 3 hosts and 1 router interface (223.1.1.xxx)
+  - **subnet** 
+  - **subnet mask** 223.1.1.0/24 (“slash 24”)
+  - LAN interconnected with no routers e.g. ethernet or WiFi
+- Other subnets
+  - 223.1.2.0/24 and 223.1.3.0/24
 
-## Control Plane
+##### CIDR
+
+- Classless Interdomain Routing (CIDR, pronounced cider)
+- Internet’s address assignment strategy
+- Generalizes the notion of subnet addressing
+- 32-bit IP divided into two parts
+- **a.b.c.d/x**
+  - Prefix x bits = network prefix e.g. for an org
+  - Internet routers use prefix to forward to org
+    - Smaller forwarding tables
+  - Remaining $32 - x$ bits address in-org hosts
+    - used by org’s internal routers
+    - can be further subnetted within org
+
+##### Address Allocation
+
+- Internet Corporation for Assigned Names and Numbers (ICANN)
+- Non-profit that manages:
+  - IP blocks allocation
+  - DNS root servers
+  - Domain name assignments
+- Host IP within org with a block of IPs
+  - Manually or Dynamic Host Configuration Protocol (DHCP)
+
+##### Network Address Translation (NAT) 
+
+![alt text](image-5.png)
+
+- Host 10.0.0.1 requests a web page from 128.119.40.186:80
+- Host assigns a src port 3345 and sends datagram into LAN
+- NAT router translates source IP and port to 138.76.29.7 5001 and sends datagram
+- NAT router receives response datagram from web server and translates into local IP port and routes to host via home network
