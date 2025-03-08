@@ -2,6 +2,25 @@
 
 Recommended reading: Kurose Chapter 1
 
+- [Computer Networks and the Internet](#computer-networks-and-the-internet)
+  - [10,000 Feet View](#10000-feet-view)
+    - [What Is The Internet?](#what-is-the-internet)
+    - [What Does The Internet Connect?](#what-does-the-internet-connect)
+    - [How Does It Connect Hosts?](#how-does-it-connect-hosts)
+    - [Useful Analogy](#useful-analogy)
+    - [A Services Description](#a-services-description)
+  - [1,000 Feet View](#1000-feet-view)
+    - [Internet Protocols](#internet-protocols)
+    - [What Is A Protocol?](#what-is-a-protocol)
+    - [Access Networks](#access-networks)
+      - [Home Access](#home-access)
+      - [Enterprise Access](#enterprise-access)
+      - [Wide-Area Wireless Access](#wide-area-wireless-access)
+    - [Internet Service Providers (ISPs)](#internet-service-providers-isps)
+- [IPv6 = (# IPv4)4](#ipv6---ipv44)
+- [IPv6 = (# IPv4)4](#ipv6---ipv44-1)
+
+
 ## 10,000 Feet View
 
 ### What Is The Internet?
@@ -68,11 +87,16 @@ Network of:
   - Internet Protocol (IP)
 - Protocols defined by Internet Engineering Task Force (IETF) via Requests For Comments (RFCs)
 
-### Original Internet RFC
+<details>
+<summary>Aside: here's the original RFC for the Internet</summary>
 
 ![alt text](image.png)
 
+</details>
+
 ### What Is A Protocol?
+
+![alt text](image-1.png)
 
 - Send defined messages
 - Take defined actions on:
@@ -86,22 +110,38 @@ Network of:
 
 ### Access Networks
 
-Hosts live on the “edge of the network”
-Access network connects a host to the first router aka “edge router”
-“The last mile”: typically a bottleneck
-Home Access
-Enterprise Access
-Local area network (LAN) connects host to edge router
-Ethernet most prevalent LAN in corporate & university
-Wide-Area Wireless Access
-Cellular infrastructure
-~10 km range for access
-3G: ~2 Mbps, 4G: ~100 Mbps, 5G: ~1 Gbps
-Internet Service Providers (ISPs)
-Hosts access Internet through ISPs
-Each ISP: network of packet switches and communication links
-Hierarchical ISPs
-local, regional, national, international, …
+- Hosts live on the “edge of the network”
+- Access network connects a host to the first router aka “edge router”
+- “The last mile”: typically a bottleneck
+
+#### Home Access
+
+![alt text](image-3.png)
+
+(Details of each home access network not important for this class. Just know that these options exist.)
+
+#### Enterprise Access
+
+![alt text](image-4.png)
+
+- Local area network (LAN) connects host to edge router
+- Ethernet most prevalent LAN in corporate & university
+
+#### Wide-Area Wireless Access
+
+- Cellular infrastructure
+- ~10 km range for access
+- 3G: ~2 Mbps, 4G: ~100 Mbps, 5G: ~1 Gbps
+
+### Internet Service Providers (ISPs)
+
+![alt text](image-5.png)
+
+- Hosts access Internet through ISPs
+- Each ISP: network of packet switches and communication links
+- Hierarchical ISPs
+  - local, regional, national, international, …
+
 Physical Media
 Life of a bit
 Sending host to several links and routers to the receiving host
