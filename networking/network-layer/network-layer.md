@@ -7,10 +7,12 @@ Recommended reading: Kurose chapters 4 and 5
   - [How Does It Do It?](#how-does-it-do-it)
   - [Data Plane (Forwarding)](#data-plane-forwarding)
     - [How To Choose The Outgoing Link?](#how-to-choose-the-outgoing-link)
-    - [IPv4](#ipv4)
-      - [Addressing](#addressing)
+    - [What's In The Datagram Header?](#whats-in-the-datagram-header)
+      - [IPv4](#ipv4)
+        - [Layering Examples](#layering-examples)
+        - [Addressing](#addressing)
       - [NAT](#nat)
-    - [IPv6](#ipv6)
+      - [IPv6](#ipv6)
       - [Migration](#migration)
   - [Control Plane](#control-plane)
 
@@ -89,15 +91,16 @@ Example forwarding table:
 
     ![alt text](forwarding-1.png)
 
-     1. What is router A's forwarding table entry such that all traffic destined to host H3 is forwarded through interface 3? 
+     1. What is router A's forwarding table entry such that all traffic destined to host H3 is forwarded through interface 3? <!-- NETWO-n65Ry --> 
 
      <pre>
      </pre>
 
-    2. What is A's forwarding table entry such that all traffic from H1 to H3 uses interface 3 and all traffic from H2 to H3 uses interface 4?
+    1. What is A's forwarding table entry such that all traffic from H1 to H3 uses interface 3 and all traffic from H2 to H3 uses interface 4? <!-- NETWO-gpJOU -->
 
     <pre>
     </pre>
+
 2. Consider a datagram network using 8-bit host addresses. Suppose a router uses longest prefix matching and has the following forwarding table:
 
     | Prefix Match | Interface |
@@ -107,7 +110,7 @@ Example forwarding table:
     | 111          | 2         |
     | otherwise    | 3         |
 
-    For each of the four interfaces, give the associated range of destination host addresses and the number of addresses in the range.
+    For each of the four interfaces, give the associated range of destination host addresses and the number of addresses in the range. <!-- NETWO-BDwdV -->
 
     <pre>
 
@@ -117,13 +120,77 @@ Example forwarding table:
 
 </details>
 
-### IPv4
+### What's In The Datagram Header?
 
-#### Addressing
+**IP (Internet Protocol)**
+ 1. IPv4
+ 2. IPv6
+
+#### IPv4
+
+![](ipv4.png)
+
+- Version (4 bits)
+  - 4 for IPv4, 6 for IPv6
+  - First thing in the header, to know how to parse the rest of the header
+- Header length (4 bits)
+  - to account for Options (w/o options, 20 bytes)
+- Type of service (8 bits)
+  - e.g. real-time telephony vs non-real-time FTP
+- Datagram length (16 bits)
+  - header + data
+- Identifier, flags, fragmentation offset (32 bits)
+  - large datagram fragmentation and reassembly
+  - removed in IPv6!
+- Time-to-live
+  - decremented by 1 at each router and discarded when 0
+- Upper Protocol
+  - used at destination host
+  - TCP = 6, UDP = 17
+  - Analogous to TCP segment port number
+- Header checksum
+  - bit errors in datagram
+  - recomputed and stored at each router (e.g. TTL changes)
+  - Removed in IPv6!
+- **Src/dst IPv4 addresses**
+- Options
+  - rarely used
+  - removed in IPv6!
+- **Data**
+  - typically, transport layer segment or network layer control msgs e.g. ICMP
+
+##### Layering Examples
+
+![alt text](image-3.png)
+
+<details>
+
+<summary>Exercises</summary>
+
+1. How does IPv4 ensure that a datagram is forwarded through no more than N routers? <!-- NETWO-KpO6F -->
+
+    <pre>
+    </pre>
+
+1. Suppose Host A sends Host B a TCP segment encapsulated in an IP datagram. When Host B receives the datagram, how does its network layer know it should pass the segment (i.e. the payload of the datagram) to TCP rather than to UDP or some other transport-layer protocol? <!-- NETWO-voEYl -->
+
+    <pre>
+    </pre>
+
+1. Suppose an application generates chunks of 40 bytes of data every 30 msec, and each chunk is sent over the network via TCP and IPv4. What percentage of each network-layer datagram will be overhead (i.e. protocol headers)? <!-- NETWO-9xysP -->
+
+    <pre>
+
+
+    </pre>
+
+</details>
+
+##### Addressing
 
 #### NAT
 
-### IPv6
+#### IPv6
 
 #### Migration
 
