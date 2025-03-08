@@ -3,10 +3,10 @@
 Recommended reading: Kurose chapters 4 and 5
 
 - [Network Layer](#network-layer)
-  - [Overview](#overview)
-    - [What Does the Network Layer Do?](#what-does-the-network-layer-do)
-  - [Data Plane](#data-plane)
-    - [Forwarding](#forwarding)
+  - [What Does It Do?](#what-does-it-do)
+  - [How Does It Do It?](#how-does-it-do-it)
+  - [Data Plane (Forwarding)](#data-plane-forwarding)
+    - [How Does Forwarding Work?](#how-does-forwarding-work)
     - [IPv4](#ipv4)
       - [Addressing](#addressing)
       - [NAT](#nat)
@@ -15,44 +15,41 @@ Recommended reading: Kurose chapters 4 and 5
   - [Control Plane](#control-plane)
 
 
-## Overview
+## What Does It Do?
+
+> [!IMPORTANT]
+> Move datagrams from sending host to receiving host via intermediate routers
 
 ![](image.png)
 
-- Example
-    - host H1 sends msg to host H2
-        - H1: transport segments -> network datagrams
-        - H1 -> R1 -> … -> R2 -> H2
-          - Network layer involved in each hop
-        - H2: network datagrams -> transport segments 
-- Network layer in all nodes in network, including:
+- Example: host H1 sends msg to host H2
+    - H1: ... -> transport segments -> network datagrams -> ...
+    - H1 -> R1 -> … -> R2 -> H2
+      - Up to network layer involved in each hop
+    - H2: ... -> network datagrams -> transport segments -> ...
+- Network layer used in all nodes in network:
     - hosts
     - packet-switches
         - link-layer switches
         - routers
-- Network layer processed in each node on src -> dst path
-    - c.f. app and transport layers which are only processed on the end systems (hosts)
+- c.f. app and transport layers which are only used on end systems (hosts)
 
-### What Does the Network Layer Do?
-
-**Move datagrams from sending host to receiving host via intermediate routers**
-
-How?
+## How Does It Do It?
 
 ![](image-1.png)
 
 1. **Forwarding** (data plane)
-    - incoming link -> outgoing link
+    - Move datagram from **incoming link to appropriate outgoing link**
     - router-local
     - hardware (fast)
 1. **Routing** (control plane)  
-    - end-to-end path
+    - Determine good **end-to-end paths** and update router-local forwarding info
     - network-wide
     - software (slower)
 
-## Data Plane
+## Data Plane (Forwarding)
 
-### Forwarding
+### How Does Forwarding Work?
 
 ### IPv4
 
