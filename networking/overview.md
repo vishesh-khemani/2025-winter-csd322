@@ -24,7 +24,7 @@ How the following “magical” things happen:
 - [Computer Networks and the Internet](internet)
 - Top-down networking stack
     - [Application Layer](app-layer)
-    - [Transport Layer](transport-layer)
+    - [Transport Layer](transport/transport)
     - [Network Layer](network-layer)
     - Link Layer
     - Physical Layer

@@ -1,8 +1,8 @@
-# Transport Layer
+# Network Layer
 
 Recommended reading: Kurose chapters 4 and 5
 
-- [Transport Layer](#transport-layer)
+- [Network Layer](#network-layer)
   - [Overview](#overview)
     - [What Does the Network Layer Do?](#what-does-the-network-layer-do)
   - [Data Plane](#data-plane)
