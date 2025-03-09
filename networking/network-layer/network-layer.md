@@ -194,8 +194,6 @@ Example forwarding table:
 
     </pre>
 
-</details>
-
 [Back to the top](#network-layer)
 
 ---
