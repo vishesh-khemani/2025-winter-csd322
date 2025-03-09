@@ -19,6 +19,9 @@ Recommended reading: Kurose chapters 4 and 5
       - [Network Address Translation (NAT)](#network-address-translation-nat)
     - [IPv6](#ipv6)
       - [Migrating from IPv4 to IPv6](#migrating-from-ipv4-to-ipv6)
+  - [Control Plane (Routing)](#control-plane-routing)
+    - [Routing Algorithms](#routing-algorithms)
+    - [Link-State Routing Algorithm](#link-state-routing-algorithm)
 
 ## Overview
 
@@ -289,3 +292,92 @@ Example NAT:
 [Back to the top](#network-layer)
 
 ---
+
+## Control Plane (Routing)
+
+Recall:
+
+> Routing = Determine good **end-to-end paths** and update router-local forwarding tables.
+
+### Routing Algorithms
+
+- Goal: determine *good* paths/routes, from senders to receivers, through network of routers
+- “good”: least cost (e.g. length or speed or \$ of link)
+  - respecting policy constraints
+- **path/route**: sequence of routers from sender to receiver
+- Formulation: graph G = (N, E)
+  - set of N nodes (routers) and E edges (links)
+
+Example routers graph:
+
+![alt text](image-8.png)
+
+- Classification
+  - **Centralized** aka **Link-State (LS)**
+    - uses complete, global knowledge of network
+  - **Decentralized** aka **Distance-Vector (DV)** and its extension **Path-Vector**
+    - no node has complete information
+    - nodes compute routes iteratively via exchanging info
+
+### Link-State Routing Algorithm
+
+- Complete knowledge => each node broadcasts link-state packets to all other nodes
+  - Only feasible in small networks e.g. within an org
+  - Example protocols
+    - **OSPF** (Open Shortest Path First)
+    - **IS-IS** (Intermediate System To Intermediate System)
+- **Dijkstra’s algorithm**
+  - computes least-cost path from source node (e.g. $u$) to all other nodes
+  - iterative: after kth iteration, paths known to k nodes
+  - Notation
+    - $D_u(v)$: cost of current least-cost path from $u$ to $v$
+    - $N^\prime$: subset of nodes; $v$ is in $N^\prime$ if least-cost path to $v$ is known 
+
+Djikstra dry-run for the following example graph using source node $u$:
+
+![alt text](image-8.png)
+
+0. Start with source node and its distance to its neighbors.
+    
+    $N^\prime = \{u\}$
+    
+    $D_u(v) = 2, D_u(w) = 5, D_u(x) = 1, D_u(y) = \infty , D_u(z) = \infty$
+
+1. Pick closest node not in $N^\prime$ i.e. $x$
+
+    $N^\prime = \{u, x\}, D_u(x) = 1$
+
+    For each neighbor $a$ of $x$ not in $N^\prime$, update $D_u(a) = \text{min}(D_u(a), D_u(x) + D_x(a))$
+
+    $D_u(v) = \text{min}(2, 1 + 2) = 2, D_u(w) = \text{min}(5, 1 + 3) = 4, D_u(y) = \text{min}(\infty, 1 + 1) = 2, D_u(z) = \infty$
+
+2. Pick closest node not in $N^\prime$ i.e. $y$
+
+    $N^\prime = \{u, x, y\}, D_u(x) = 1, D_u(y) = 2$
+
+    For each neighbor $a$ of $y$ not in $N^\prime$, update $D_u(a) = \text{min}(D_u(a), D_u(y) + D_y(a))$
+
+    $D_u(v) = 2, D_u(w) = \text{min}(4, 2 + 1) = 3, D_u(z) = \text{min}(\infty, 2 + 2) = 4$
+
+2. Pick closest node not in $N^\prime$ (left as an exercise)
+
+    <pre>
+
+
+    </pre>
+
+3. Pick closest node not in $N^\prime$ (left as an exercise)
+
+    <pre>
+
+    
+    </pre>
+
+4. Pick closest node not in $N^\prime$ i.e. $z$
+
+    $N^\prime = \{u, x, y, v, w, z\}, D_u(x) = 1, D_u(y) = 2, D_u(v) = 2, D_u(w) = 3, D_u(z) = 4$
+
+    $N^\prime$ contains all nodes, so done.
+
+A slight enhancement to the above algorithm allows for tracking the *previous node* in the shortest path to a node, which in turn determines the shortest-path to each node from a single source node. 
+
