@@ -3,22 +3,27 @@
 Recommended reading: Kurose chapters 4 and 5
 
 - [Network Layer](#network-layer)
-  - [What Does It Do?](#what-does-it-do)
-  - [How Does It Do It?](#how-does-it-do-it)
+  - [Overview](#overview)
+    - [What Does It Do?](#what-does-it-do)
+    - [How Does It Do It?](#how-does-it-do-it)
+    - [Aside: Net Neutrality](#aside-net-neutrality)
   - [Data Plane (Forwarding)](#data-plane-forwarding)
     - [How To Choose The Outgoing Link?](#how-to-choose-the-outgoing-link)
-    - [What's In The Datagram Header?](#whats-in-the-datagram-header)
-      - [IPv4](#ipv4)
+      - [Exercises](#exercises)
+    - [IPv4](#ipv4)
       - [Layering Examples](#layering-examples)
-      - [Addressing](#addressing)
-        - [CIDR](#cidr)
-        - [Address Allocation](#address-allocation)
-        - [Network Address Translation (NAT)](#network-address-translation-nat)
+      - [Exercises](#exercises-1)
+    - [Addressing](#addressing)
+      - [CIDR](#cidr)
+      - [Address Allocation](#address-allocation)
+      - [Network Address Translation (NAT)](#network-address-translation-nat)
+    - [IPv6](#ipv6)
+      - [Migrating from IPv4 to IPv6](#migrating-from-ipv4-to-ipv6)
 
+## Overview
 
-## What Does It Do?
+### What Does It Do?
 
-> [!IMPORTANT]
 > The network layer moves datagrams from the sending host to the receiving host via intermediate routers.
 
 ![](image.png)
@@ -35,22 +40,20 @@ Recommended reading: Kurose chapters 4 and 5
         - routers
 - c.f. app and transport layers which are only used on end systems (hosts)
 
-## How Does It Do It?
+### How Does It Do It?
 
 ![](image-1.png)
 
-1. **Forwarding** (data plane)
+1. **Forwarding** (**data plane**)
     - Move datagram from **incoming link to appropriate outgoing link**
     - router-local
     - hardware (fast)
-1. **Routing** (control plane)  
+1. **Routing** (**control plane**)  
     - Determine good **end-to-end paths** and update router-local forwarding info
     - network-wide
     - software (slower)
 
-<details>
-
-<summary>Aside: Net Neutrality</summary>
+### Aside: Net Neutrality
 
 - "With great power comes great responsibility"
 - Routers control the flow of internet traffic
@@ -61,30 +64,37 @@ Recommended reading: Kurose chapters 4 and 5
   - No Throttling of lawful traffic
   - No Paid Prioritization of some traffic
 
-</details>
+[Back to top](#network-layer)
+
+---
 
 ## Data Plane (Forwarding)
 
 Recall:
-- Forwarding = packet-switch moves a datagram from the **incoming link to an appropriate outgoing link**
+
+> Forwarding = packet-switch moves a datagram from the **incoming link to an appropriate outgoing link**
 
 ### How To Choose The Outgoing Link?
 
 - Use info in the network-layer header
 - What info? the datagram's destination host identified by an IP address
-- Known as **destination-based forwarding**
+  - Known as **destination-based forwarding**
+  - Network-layer Protocol: **IP** (v4 or v6)
 - **Forwarding table**:
-  - map: destination-IP -> outbound-link
-- Problem: too many possible destinations to track
-  - e.g. ~4 billion IPv4 addresses
-- Solution: **longest-prefix routing**
-  - Hardware logic to match the longest prefix IP address entry in the forwarding table
+  - map: *destination-IP* -> *outbound-link*
+- Problem
+  - too many possible destinations => large forwarding table
+      - e.g. ~4 billion IPv4 addresses
+  - Solution: **IP-prefix routing**
+    - Longest prefix match
+
 
 Example forwarding table:
 ![alt text](image-2.png)
 
-<details>
-<summary>Exercises</summary>
+---
+
+#### Exercises
 
 1. Consider the network below. 
 
@@ -117,15 +127,11 @@ Example forwarding table:
 
     </pre>
 
-</details>
+[Back to the top](#network-layer)
 
-### What's In The Datagram Header?
+---
 
-**IP (Internet Protocol)**
- 1. IPv4
- 2. IPv6
-
-#### IPv4
+### IPv4
 
 ![](ipv4.png)
 
@@ -162,9 +168,7 @@ Example forwarding table:
 
 ![alt text](image-3.png)
 
-<details>
-
-<summary>Exercises</summary>
+#### Exercises
 
 1. How does IPv4 ensure that a datagram is forwarded through no more than N routers? <!-- NETWO-KpO6F -->
 
@@ -185,7 +189,11 @@ Example forwarding table:
 
 </details>
 
-#### Addressing
+[Back to the top](#network-layer)
+
+---
+
+### Addressing
 
 - **Network interface**
   - boundary between host/router and physical link
@@ -205,13 +213,13 @@ Example: one router interconnecting 7 hosts
 - Other subnets
   - 223.1.2.0/24 and 223.1.3.0/24
 
-##### CIDR
+#### CIDR
 
 - Classless Interdomain Routing (CIDR, pronounced cider)
 - Internet’s address assignment strategy
 - Generalizes the notion of subnet addressing
-- 32-bit IP divided into two parts
-- **a.b.c.d/x**
+- 32-bit IP divided into two parts: prefix and the rest
+- **a.b.c.d/x** ("slash x")
   - Prefix x bits = network prefix e.g. for an org
   - Internet routers use prefix to forward to org
     - Smaller forwarding tables
@@ -219,7 +227,7 @@ Example: one router interconnecting 7 hosts
     - used by org’s internal routers
     - can be further subnetted within org
 
-##### Address Allocation
+#### Address Allocation
 
 - Internet Corporation for Assigned Names and Numbers (ICANN)
 - Non-profit that manages:
@@ -229,11 +237,55 @@ Example: one router interconnecting 7 hosts
 - Host IP within org with a block of IPs
   - Manually or Dynamic Host Configuration Protocol (DHCP)
 
-##### Network Address Translation (NAT) 
+#### Network Address Translation (NAT) 
 
+- Strategy for assigning IPs to small subnets (e.g. home networks)
+- NAT-enabled router
+- home interface interconnects 10.0.0.0/24 subnet
+  - 10.0.0.0/8 = private network block (RFC 1918)
+  - So how many possible hosts in the home subnet?
+- Single IP for outside world (e.g. 138.76.29.7)
+- Port numbers used in NAT translation
+
+Example NAT:
 ![alt text](image-5.png)
 
 - Host 10.0.0.1 requests a web page from 128.119.40.186:80
 - Host assigns a src port 3345 and sends datagram into LAN
 - NAT router translates source IP and port to 138.76.29.7 5001 and sends datagram
 - NAT router receives response datagram from web server and translates into local IP port and routes to host via home network
+
+[Back to the top](#network-layer)
+
+---
+
+### IPv6
+
+![alt text](image-6.png)
+
+- Primary motivation: IPv4 address exhaustion
+- IPv6 address: 128 bits or 16 bytes
+  - (c.f. 4 bytes IPv4 address)
+  - $2^{128}$ addresses (c.f. $2^{32}$ for IPv4)
+  - every grain of sand is addressable
+- Streamlined **40-byte header**
+  - No fragmentation/reassembly
+    - “Packet Too Big” ICMP error
+  - No header checksum
+    - Rely on Transport and Link layers
+  - No Options section
+
+#### Migrating from IPv4 to IPv6
+
+- All routers on path from src to dest need to support IPv6
+- Can’t shutdown the internet for a bit!
+- Need to interoperate between the 2 versions
+- Solution: **Tunneling**
+  - Wrap IPv6 packet in IPv4 to tunnel through IPv4 routers
+  - Set IPv4 upper protocol field to 41 so that the IPv6 receiver can unwrap
+
+![alt text](image-7.png)
+
+[Back to the top](#network-layer)
+
+---
