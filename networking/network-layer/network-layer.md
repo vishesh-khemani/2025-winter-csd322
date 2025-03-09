@@ -22,6 +22,7 @@ Recommended reading: Kurose chapters 4 and 5
   - [Control Plane (Routing)](#control-plane-routing)
     - [Routing Algorithms](#routing-algorithms)
     - [Link-State Routing Algorithm](#link-state-routing-algorithm)
+    - [Distance-Vector Routing Algorithm](#distance-vector-routing-algorithm)
 
 ## Overview
 
@@ -323,9 +324,7 @@ Example routers graph:
 
 - Complete knowledge => each node broadcasts link-state packets to all other nodes
   - Only feasible in small networks e.g. within an org
-  - Example protocols
-    - **OSPF** (Open Shortest Path First)
-    - **IS-IS** (Intermediate System To Intermediate System)
+  - Example protocol: **OSPF** (Open Shortest Path First)
 - **Dijkstra’s algorithm**
   - computes least-cost path from source node (e.g. $u$) to all other nodes
   - iterative: after kth iteration, paths known to k nodes
@@ -337,13 +336,13 @@ Djikstra dry-run for the following example graph using source node $u$:
 
 ![alt text](image-8.png)
 
-0. Start with source node and its distance to its neighbors.
+1. Start with source node and its distance to its neighbors.
     
     $N^\prime = \{u\}$
     
     $D_u(v) = 2, D_u(w) = 5, D_u(x) = 1, D_u(y) = \infty , D_u(z) = \infty$
 
-1. Pick closest node not in $N^\prime$ i.e. $x$
+2. Pick closest node not in $N^\prime$ i.e. $x$
 
     $N^\prime = \{u, x\}, D_u(x) = 1$
 
@@ -351,7 +350,7 @@ Djikstra dry-run for the following example graph using source node $u$:
 
     $D_u(v) = \text{min}(2, 1 + 2) = 2, D_u(w) = \text{min}(5, 1 + 3) = 4, D_u(y) = \text{min}(\infty, 1 + 1) = 2, D_u(z) = \infty$
 
-2. Pick closest node not in $N^\prime$ i.e. $y$
+3. Pick closest node not in $N^\prime$ i.e. $y$
 
     $N^\prime = \{u, x, y\}, D_u(x) = 1, D_u(y) = 2$
 
@@ -359,7 +358,7 @@ Djikstra dry-run for the following example graph using source node $u$:
 
     $D_u(v) = 2, D_u(w) = \text{min}(4, 2 + 1) = 3, D_u(z) = \text{min}(\infty, 2 + 2) = 4$
 
-2. Pick closest node not in $N^\prime$ (left as an exercise)
+4. Pick closest node not in $N^\prime$ (left as an exercise)
 
     <pre>
 
@@ -381,3 +380,46 @@ Djikstra dry-run for the following example graph using source node $u$:
 
 A slight enhancement to the above algorithm allows for tracking the *previous node* in the shortest path to a node, which in turn determines the shortest-path to each node from a single source node. 
 
+[Back to the top](#network-layer)
+
+### Distance-Vector Routing Algorithm
+
+- *Distributed*: each node exchanges info with direct neighbors
+  - Feasible in large networks e.g. between orgs
+  - Example protocol: **BGP** (Border Gateway Protocol)
+- *Iterative*: continues until state converges (no more new info to exchange)
+- *Asynchronous*: nodes operate independently, not in lock-step
+- Based on the intuitive **Bellman-Ford equation**:
+  - $D_x(y) = \text{min}_v(c(x, v) + D_v(y))$
+- Extends to **Path-Vector** algorithm to track the end-to-end paths (not just the distances)
+
+Example network of gateway routers:
+
+![alt text](image-9.png)
+
+Example dry run:
+
+0. Each node initializes a vector of distances to all nodes
+
+    $\vec{D_x} = [0, 2, 7], \vec{D_y} = [2, 0, 1], \vec{D_z} = [7, 1, 0]$
+
+1. $y$ sends its $\vec{D_y}$ to $x$
+
+    $c(x, y) = 2$
+    
+    $\vec{D_x} = [0, 2, \text{min}(7, 2 + 1) = 3]$
+
+1. $y$ sends its $\vec{D_y}$ to $z$
+
+    $c(z, y) = 1$
+    
+    $\vec{D_z} = [\text{min}(7, 1 + 2) = 3, 1, 0]$
+
+1. Every time a node's distance vector changes, it sends it to all its immediate neighbors.
+
+1. Continue until the state converges in every node and the nodes stop sending updates.
+
+
+[Back to the top](#network-layer)
+
+---
