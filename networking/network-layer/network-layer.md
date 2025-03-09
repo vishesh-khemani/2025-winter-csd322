@@ -17,12 +17,15 @@ Recommended reading: Kurose chapters 4 and 5
       - [CIDR](#cidr)
       - [Address Allocation](#address-allocation)
       - [Network Address Translation (NAT)](#network-address-translation-nat)
+      - [Exercises](#exercises-2)
     - [IPv6](#ipv6)
       - [Migrating from IPv4 to IPv6](#migrating-from-ipv4-to-ipv6)
   - [Control Plane (Routing)](#control-plane-routing)
     - [Routing Algorithms](#routing-algorithms)
     - [Link-State Routing Algorithm](#link-state-routing-algorithm)
+      - [Exercises](#exercises-3)
     - [Distance-Vector Routing Algorithm](#distance-vector-routing-algorithm)
+      - [Exercises](#exercises-4)
 
 ## Overview
 
@@ -259,6 +262,16 @@ Example NAT:
 - NAT router translates source IP and port to 138.76.29.7 5001 and sends datagram
 - NAT router receives response datagram from web server and translates into local IP port and routes to host via home network
 
+#### Exercises
+
+1. Consider a subnet with prefix 128.119.40.128/26. Give an example of one IP address (of form xxx.xxx.xxx.xxx) that can be assigned to this network. Suppose an ISP owns the block of addresses of the form 128.119.40.64/26. Suppose it wants to create four subnets from this block, with each block having the same number of IP addresses. What are the prefixes (of form a.b.c.d/x) for the four subnets? <!-- NETWO-52sqI -->
+
+    <pre>
+
+
+
+    </pre>
+
 [Back to the top](#network-layer)
 
 ---
@@ -380,6 +393,24 @@ Djikstra dry-run for the following example graph using source node $u$:
 
 A slight enhancement to the above algorithm allows for tracking the *previous node* in the shortest path to a node, which in turn determines the shortest-path to each node from a single source node. 
 
+#### Exercises
+
+1. True or false: When an OSPF route sends its link state information, it is sent only to the directly attached neighbors. Explain. <!-- NETWO-mEjrr -->
+
+    <pre>
+
+
+
+    </pre>
+
+1. Consider the following network. With the indicated link costs, uses Djikstra's shortes-path algorithm to compute the shortest path from $x$ to $u$, $w$, and $y$. <!-- NETWO-R6lfp -->
+
+    <pre>
+
+
+
+    </pre>
+
 [Back to the top](#network-layer)
 
 ### Distance-Vector Routing Algorithm
@@ -418,6 +449,36 @@ Example dry run:
 1. Every time a node's distance vector changes, it sends it to all its immediate neighbors.
 
 1. Continue until the state converges in every node and the nodes stop sending updates.
+
+#### Exercises
+
+1. Consider the network shown below, and assume that each node initially knows the costs to each of its neighbors. Consider the distance-vector algorithm. <!-- NETWO-IllSd -->
+
+    ![alt text](<Screenshot 2025-03-09 at 2.56.42 PM.png>)
+
+     1. What is the initial distance vector at $z$?
+
+        <pre>
+
+
+
+        </pre>
+
+     2. What is the updated distance vector at $z$ after it recives the initial distance vector from $x$?
+
+        <pre>
+
+
+
+        </pre>
+
+    1. What is the updated distance vector at $z$ after it recives the initial distance vector from $v$?
+
+        <pre>
+
+
+
+        </pre>
 
 
 [Back to the top](#network-layer)
