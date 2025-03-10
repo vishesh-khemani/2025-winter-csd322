@@ -16,11 +16,10 @@ Recommended reading: Kurose chapter 2
       - [TCP Server](#tcp-server)
       - [TCP Client](#tcp-client)
   - [Web and HTTP](#web-and-http)
-    - [HTTP](#http)
-      - [HTTP Request Message](#http-request-message)
-      - [HTTP Response Message](#http-response-message)
-      - [HTTP Status Codes](#http-status-codes)
-      - [Demos](#demos)
+    - [HTTP Request Message](#http-request-message)
+    - [HTTP Response Message](#http-response-message)
+    - [HTTP Status Codes](#http-status-codes)
+    - [Demos](#demos)
   - [Domain Name System (DNS)](#domain-name-system-dns)
     - [Services Provided By DNS](#services-provided-by-dns)
     - [Distributed Hierarchical Database](#distributed-hierarchical-database)
@@ -244,19 +243,16 @@ client_socket.close()
 - Server: **TCP server** listening on **port 80**
   - typically in org’s datacenter or cloud-hosted
 - App protocol: HyperText Transfer Protocol (**HTTP**)
+  - Defined in RFCs 1945, 7230, 7540
+  - Spoken between web browsers and web servers
+  - **Web page**: base HTML file and several referenced objects
+    - object: addressable by URL
+      - HTML, JPEG, Javascript, CSS, video, …
+    - **URL** e.g. http://www.lwtech.edu/admissions/campus-tour.aspx
+      - hostname of web server: "www.lwtech.edu"
+      - object’s path name: "/admissions/campus-tour.aspx"
 
-### HTTP
-
-- Defined in RFCs 1945, 7230, 7540
-- Spoken between web browsers and web servers
-- **Web page**: base HTML file and several referenced objects
-  - object: addressable by URL
-    - HTML, JPEG, Javascript, CSS, video, …
-  - **URL** e.g. http://www.lwtech.edu/admissions/campus-tour.aspx
-    - hostname of web server: "www.lwtech.edu"
-    - object’s path name: "/admissions/campus-tour.aspx"
-
-#### HTTP Request Message
+### HTTP Request Message
 
 ![alt text](image-6.png)
 
@@ -271,7 +267,7 @@ client_socket.close()
 - Human-readable ASCII text
 - Methods: GET, POST, HEAD, PUT, DELETE, ...
 
-#### HTTP Response Message
+### HTTP Response Message
 
 ![alt text](image-7.png)
 
@@ -288,7 +284,7 @@ client_socket.close()
 
 - Entity body contains the requested object
 
-#### HTTP Status Codes
+### HTTP Status Codes
 
 - IANA maintains official registry
   - 2xx successful e.g. 200 OK
@@ -297,7 +293,7 @@ client_socket.close()
   - 5xx server error e.g. 503 Service Unavailable
 - From the trenches: important to distinguish between 4xx and 5xx to operate a service
 
-#### Demos
+### Demos
 
 - Talk to Web Server
 
