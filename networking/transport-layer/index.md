@@ -26,6 +26,10 @@ Recommended reading: Kurose chapter 3
       - [Slow Start](#slow-start)
       - [Congestion Avoidance](#congestion-avoidance)
     - [Disconnection](#disconnection)
+    - [TCP States](#tcp-states)
+      - [Client](#client)
+      - [Server](#server)
+    - [TCP Session on Wireshark](#tcp-session-on-wireshark)
 
 ## Overview
 
@@ -234,12 +238,107 @@ Example ACK segment (wireshark):
 
 ### Flow Control
 
+![alt text](image-16.png)
+
+- Prevent sender from overflowing receive buffer
+- Distinct from congestion control
+- Receiver tracks receive window (**rwnd**) and includes it in every segment it sends to sender
+- Sender keeps unacked bytes below rwnd
+
 #### Window Scaling
+
+- 16 bits rwnd => 64 Kilobytes of unacked data
+- Bandwidth-delay product of a link
+  - How much data is unacked in link
+  - Long Fat Network (LFN)
+    - e.g. 10 Mbit/s link with 100 ms propagation RTT
+    - => 1 Mbit or ~125 KB unacked in link
+    - => max of 64 KB rwnd too small!
+- Left-shift amount in header options
+    - 0 <= shift-at <= 14
+    - Negotiated at handshake time
+- So max rwnd = 214 x 216 bytes or ~ 1 GB
+- From the trenches: often had to tweak window scaling for Amazon S3 customers reading data from far away
 
 ### Congestion Control
 
+1. How does sender limit rate?
+
+   - **cwnd**: congestion window
+   - unacked-bytes <= min{cwnd, rwnd}
+   - send rate ~ wnd/RTT bytes/sec
+
+1. How does sender detect congestion?
+
+   - Loss events
+     - timeout for ack-wait
+     - duplicate acks (when receiving out-of-order segments)
+
+1. How does sender strike balance between congestion and throughput?
+
+   - Acks => no congestion
+     - Increase cwnd 
+     - Rate of increase depends on acks arrival rate
+   - Lost acks
+     - Decrease cwnd
+   - **Slow start** and **congestion avoidance**
+
 #### Slow Start
+
+![alt text](image-17.png)
+
+- Start of TCP connection: cwnd = 1 MSS
+- Every ack => cwnd = cwnd + 1 MSS
+  - Exponential increase: doubles every RTT
+    - cwnd (in MSS) = 1, 2, 4, 8, … 
+  - When cwnd >= ssthresh (slow-start-threshold)
+    - Transition to congestion-avoidance
+- Loss event
+  - restart slow start
+  - ssthresh = cwnd / 2
 
 #### Congestion Avoidance
 
+- **Additive increase** rather than exponential increase
+  - Every ack: cwnd = cwnd + MSS / cwnd 
+    - => Every RTT: cwnd = cwnd + 1 MSS
+  - c.f. slow-start
+    - Every ack: cwnd = cwnd + 1 MSS
+    - => every RTT: cwnd = cwnd * 2
+- **Multiplicative decrease** on loss event
+  - cwnd = cwnd / 2
+- **AIMD** (Additive Increase Multiplicative Decrease)
+  - sawtooth behavior of cwnd
+- From the trenches: AIMD in app-layer congestion avoidance in Google’s cache-invalidation system
+
 ### Disconnection
+
+![alt text](image-18.png)
+
+- Either side can end the connection
+- Resources (buffers/variables) released
+- Example: client initiates close
+  - Client closes only after
+    - ACK received from server
+    - FIN received from server
+    - Wait time elapsed e.g. to resend a lost ack
+  
+### TCP States
+
+#### Client
+
+![alt text](image-19.png)
+
+#### Server
+
+![alt text](image-20.png)
+
+### TCP Session on Wireshark
+
+The following is a TCP session captured on wireshark for a localhost TCP server to whom a localhost netcat client sent the message "Hello" and then disconnected.
+
+![alt text](image-21.png)
+
+[(Back to the top)](#transport-layer)
+
+---
