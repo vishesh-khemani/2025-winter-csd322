@@ -17,8 +17,8 @@ Recommended reading: Kurose Chapter 1
       - [Enterprise Access](#enterprise-access)
       - [Wide-Area Wireless Access](#wide-area-wireless-access)
     - [Internet Service Providers (ISPs)](#internet-service-providers-isps)
-- [IPv6 = (# IPv4)4](#ipv6---ipv44)
-- [IPv6 = (# IPv4)4](#ipv6---ipv44-1)
+    - [Physical Media](#physical-media)
+    - [The Network Core](#the-network-core)
 
 
 ## 10,000 Feet View
@@ -142,20 +142,26 @@ Network of:
 - Hierarchical ISPs
   - local, regional, national, international, …
 
-Physical Media
-Life of a bit
-Sending host to several links and routers to the receiving host
-Series of transmitter-receiver pairs
-Each transmitter-receiver pair
-electromagnetic wave on a physical medium
-Example media: twisted-pair copper wire, coaxial cable, fiber-optic cable, terrestrial radio spectrum, and satellite radio spectrum
-The Network Core
-Mesh of packet switches and links that interconnects hosts
-Hosts exchange messages (control, data, etc.) according to a protocol
-Sender host chunks message into packets
-Each packet travels through links and switches (routers and link-layer switches)
-Recall cargo trucks traversing highways
-Switch: receive packet from incoming link and switch it to appropriate outgoing link
+### Physical Media
+
+- Life of a bit
+  - Sending host to several links and routers to the receiving host
+  - Series of transmitter-receiver pairs
+- Each transmitter-receiver pair
+  - electromagnetic wave on a physical medium
+- Example media: twisted-pair copper wire, coaxial cable, fiber-optic cable, terrestrial radio spectrum, and satellite radio spectrum
+
+### The Network Core
+
+
+
+- Mesh of **packet switches** and **links** that interconnects hosts
+- Hosts exchange messages (control, data, etc.) according to a protocol
+- Sender host chunks message into packets
+- Each packet travels through links and switches (routers and link-layer switches)
+  - Recall cargo trucks traversing highways
+- Switch: receive packet from incoming link and switch it to appropriate outgoing link
+
 Forwarding Tables and Routing Protocols
 Router switches a packet from incoming link to an appropriate outgoing link. How does it select outgoing link?
 A packet contains “IP address” of destination host
@@ -947,266 +953,3 @@ Transport Layer
 Network Layer
 Network Layer: Data Plane
 Recommended reading: Kurose chapter 4
-Network Overview
-Example: host H1 sends msg to host H2
-H1: transport segments -> network datagrams
-H1 -> R1 -> … -> R2 -> H2
-H2: network datagrams -> transport segments 
-Network layer in all hosts and routers in network
-Network Overview
-Example: host H1 sends msg to host H2
-H1: transport segments -> network datagrams
-H1 -> R1 -> … -> R2 -> H2
-H2: network datagrams -> transport segments 
-Network layer in all hosts and routers in network
-Network layer processed in each node on src -> dst path
-Not like app and transport layers which are end-to-end
-Forwarding and Routing
-Network layer: move packets from sending host to reaching host
-Forwarding (data plane): incoming link -> outgoing link
-router-local
-hardware (fast)
-Routing (control plane): end-to-end path
-network-wide
-software (slower)
-Forwarding and Routing
-Network layer: move packets from sending host to reaching host
-Forwarding (data plane): incoming link -> outgoing link
-router-local
-hardware (fast)
-Routing (control plane): end-to-end path
-network-wide
-software (slower)
-Inside A Router
-Input Ports
-e.g. 800 100 Gbps ethernet ports
-don’t confuse with tcp port
-forwarding table lookup
-Switching Fabric
-data packet to output port
-control packet to routing processor
-Output Ports
-Routing processor
-executes routing protocols
-computes forwarding tables
-Destination-Based Forwarding
-Use packet’s destination IP address to determine output port
-IPv4 32-bits => 4 billion possibilities
-Prefix based routing instead
-longest prefix matching rule
-hardware logic
-Net Neutrality
-Routers can use different packet scheduling mechanisms e.g. FIFO, Priority Queue, etc.
-US “net neutrality”: FCC 2015
-No Blocking of lawful content
-No Throttling of lawful traffic
-No Paid Prioritization of some traffic
-IPv4
-Version (4 bits): 4 for IPv4, 6 for IPv6
-Header length (4 bits): to account for Options (w/o options, 20 bytes)
-Type of service (8 bits): e.g. real-time telephony vs non-real-time FTP
-Datagram length (16 bits): header + data
-Identifier, flags, fragmentation offset (32 bits): large datagram fragmentation and reassembly
-IPv4
-Version (4 bits): 4 for IPv4, 6 for IPv6
-Header length (4 bits): to account for Options (w/o options, 20 bytes)
-Type of service (8 bits): e.g. real-time telephony vs non-real-time FTP
-Datagram length (16 bits): header + data
-Identifier, flags, fragmentation offset (32 bits): large datagram fragmentation and reassembly
-IPv4
-Version (4 bits): 4 for IPv4, 6 for IPv6
-Header length (4 bits): to account for Options (w/o options, 20 bytes)
-Type of service (8 bits): e.g. real-time telephony vs non-real-time FTP
-Datagram length (16 bits): header + data
-Identifier, flags, fragmentation offset (32 bits): large datagram fragmentation and reassembly
-IPv4
-Time-to-live: decremented by 1 at each router and discarded when 0
-Upper Protocol: used at destination host
-TCP = 6, UDP = 17
-Analogous to TCP segment port number
-Header checksum: bit errors in datagram
-recomputed and stored at each router (e.g. TTL changes)
-Why here and in the Transport layer?
-IPv4
-Version (4 bits): 4 for IPv4, 6 for IPv6
-Header length (4 bits): to account for Options (w/o options, 20 bytes)
-Type of service (8 bits): e.g. real-time telephony vs non-real-time FTP
-Datagram length (16 bits): header + data
-Identifier, flags, fragmentation offset (32 bits): large datagram fragmentation and reassembly
-IPv4
-Src/dst IPv4 addresses
-Options
-rarely used
-removed in IPv6
-Data
-typically, transport layer segment
-or network layer control msgs e.g. ICMP
-Layering Examples
-IPv4 Addressing
-Network interface: boundary between host/router and physical link
-IP address for every network interface
-typically 1 for a host, many for a router
-32 bits or 4 bytes => 232 possible IPs
-Dotted-decimal notation e.g. 193.32.216.9
-Each IP globally unique (except for IPs behind NATs)
-IPv4 Addressing
-Network interface: boundary between host/router and physical link
-IP address for every network interface
-typically 1 for a host, many for a router
-32 bits or 4 bytes => 232 possible IPs
-Dotted-decimal notation e.g. 193.32.216.9
-Each IP globally unique (except for IPs behind NATs)
-IPv4 Addressing
-Example: 1 router interconnecting 7 hosts
-24-bits common prefix for 3 hosts and 1 router interface (223.1.1.xxx)
-subnet 
-subnet mask 223.1.1.0/24 (“slash 24”)
-LAN interconnected with no routers e.g. ethernet or WiFi
-Other subnets
-223.1.2.0/24 and 223.1.3.0/24
-IPv4 Addressing
-Example: 1 router interconnecting 7 hosts
-24-bits common prefix for 3 hosts and 1 router interface (223.1.1.xxx)
-subnet 
-subnet mask 223.1.1.0/24 (“slash 24”)
-LAN interconnected with no routers e.g. ethernet or WiFi
-Other subnets
-223.1.2.0/24 and 223.1.3.0/24
-CIDR
-Classless Interdomain Routing (CIDR, pronounced cider)
-Internet’s address assignment strategy
-Generalizes the notion of subnet addressing
-32-bit IP divided into two parts
-Address Allocation
-Internet Corporation for Assigned Names and Numbers (ICANN)
-Non-profit that manages:
-IP blocks allocation
-DNS root servers
-Domain name assignments
-Host IP within org with a block of IPs
-Manually or Dynamic Host Configuration Protocol (DHCP) 
-NAT
-Strategy for assigning IPs to small subnets (e.g. home networks)
-NAT-enabled router
-home interface interconnects 10.0.0.0/24 subnet
-10.0.0.0/8 = private network block (RFC 1918)
-Single IP for outside world (e.g. 138.76.29.7)
-Port numbers used in NAT translation
-NAT
-Strategy for assigning IPs to small subnets (e.g. home networks)
-NAT-enabled router
-home interface interconnects 10.0.0.0/24 subnet
-10.0.0.0/8 = private network block (RFC 1918)
-Single IP for outside world (e.g. 138.76.29.7)
-Port numbers used in NAT translation
-NAT
-Strategy for assigning IPs to small subnets (e.g. home networks)
-NAT-enabled router
-home interface interconnects 10.0.0.0/24 subnet
-10.0.0.0/8 = private network block (RFC 1918)
-Single IP for outside world (e.g. 138.76.29.7)
-Port numbers used in NAT translation
-NAT Example
-Host 10.0.0.1 requests a web page from 128.119.40.186:80
-Host assigns a src port 3345 and sends datagram into LAN
-NAT router translates source IP and port to 138.76.29.7 5001 and sends datagram
-NAT router receives response datagram from web server and translates into local IP port and routes to host via home network
-IPv6
-Primary motivation: IPv4 address exhaustion
-128 bits or 16 bytes (4x IPv4)
-# IPv6 = (# IPv4)4
-every grain of sand is addressable
-Streamlined 40-byte header
-No fragmentation/reassembly
-“Packet Too Big” ICMP error
-No header checksum
-Rely on Transport and Link layers
-No Options section
-IPv6
-Primary motivation: IPv4 address exhaustion
-128 bits or 16 bytes (4x IPv4)
-# IPv6 = (# IPv4)4
-every grain of sand is addressable
-Streamlined 40-byte header
-No fragmentation/reassembly
-“Packet Too Big” ICMP error
-No header checksum
-Rely on Transport and Link layers
-No Options section
-IPv4 -> IPv6
-Can’t shutdown the internet for a bit!
-Need to interoperate between the 2 versions
-Tunneling
-Wrap IPv6 packet in IPv4 to tunnel through IPv4 routers
-Set IPv4 upper protocol field to 41 so that the IPv6 receiver can unwrap
-IPv4 -> IPv6
-Can’t shutdown the internet for a bit!
-Need to interoperate between the 2 versions
-Tunneling
-Wrap IPv6 packet in IPv4 to tunnel through IPv4 routers
-Set IPv4 upper protocol field to 41 so that the IPv6 receiver can unwrap
-Approach
-Computer Networks and the Internet
-Top-down networking stack
-Application Layer
-Transport Layer
-Network Layer
-Data Plane
-Network Layer: Control Plane
-Recommended reading: Kurose chapter 5
-Forwarding and Routing
-Network layer: move packets from sending host to reaching host
-Forwarding (data plane): incoming link -> outgoing link
-router-local
-hardware (fast)
-Routing (control plane): end-to-end path
-network-wide
-software (slower)
-Forwarding and Routing
-Network layer: move packets from sending host to reaching host
-Forwarding (data plane): incoming link -> outgoing link
-router-local
-hardware (fast)
-Routing (control plane): end-to-end path
-network-wide
-software (slower)
-Routing Algorithms
-Routing Algorithms
-Goal: determine good paths/routes, from senders to receivers, through network of routers
-“good”: least cost (e.g. length or speed or $ of link)
-respecting policy constraints
-“path/route”: sequence of routers from sender to receiver
-Formulation: graph G = (N, E)
-set of N nodes (routers) and E edges (links)
-Routing Algorithms
-Routing Algorithms
-Example: least cost path from node u to z
-Classification
-Centralized aka Link-State (LS)
-uses complete, global knowledge of network
-Decentralized aka Distance-Vector (DV)
-no node has complete information
-nodes compute routes iteratively via exchanging info
-Link-State (LS) Routing Algo
-Complete knowledge => each node broadcasts link-state packets to all other nodes
-Dijkstra’s algorithm
-computes least-cost path from source node (e.g. u) to all other nodes
-iterative: after kth iteration, paths known to k nodes
-Notation
-D(v): cost of current least-cost path from source to v
-p(v): previous node (neighbor of v) along current least-cost path
-N’: subset of nodes; v is in N’ if least-cost path to v is known 
-Dijkstra: Algo
-Dijkstra: Dry Run
-Dijkstra: Dry Run
-Dijkstra: Dry Run
-Dijkstra: Dry Run
-Dijkstra: Dry Run
-Dijkstra: Path
-Distance-Vector (DV) Routing Algo
-Distributed: each node exchanges info with direct neighbors
-Iterative: continues until no more chatter
-Asynchronous: nodes operate independently, not in lock-step
-Based on the intuitive Bellman-Ford equation
-￼
-DV Example
