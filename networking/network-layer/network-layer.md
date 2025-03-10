@@ -109,13 +109,17 @@ Example forwarding table:
 
      1. What is router A's forwarding table entry such that all traffic destined to host H3 is forwarded through interface 3? <!-- NETWO-n65Ry --> 
 
-     <pre>
-     </pre>
+        <br>
+        <br>
+        <br>
+        <br>
 
     1. What is A's forwarding table entry such that all traffic from H1 to H3 uses interface 3 and all traffic from H2 to H3 uses interface 4? <!-- NETWO-gpJOU -->
 
-    <pre>
-    </pre>
+        <br>
+        <br>
+        <br>
+        <br>
 
 2. Consider a datagram network using 8-bit host addresses. Suppose a router uses longest prefix matching and has the following forwarding table:
 
@@ -128,11 +132,14 @@ Example forwarding table:
 
     For each of the four interfaces, give the associated range of destination host addresses and the number of addresses in the range. <!-- NETWO-BDwdV -->
 
-    <pre>
-
-
-
-    </pre>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
 
 [Back to the top](#network-layer)
 
@@ -179,20 +186,28 @@ Example forwarding table:
 
 1. How does IPv4 ensure that a datagram is forwarded through no more than N routers? <!-- NETWO-KpO6F -->
 
-    <pre>
-    </pre>
+    <br>
+    <br>
+    <br>
+    <br>
 
-1. Suppose Host A sends Host B a TCP segment encapsulated in an IP datagram. When Host B receives the datagram, how does its network layer know it should pass the segment (i.e. the payload of the datagram) to TCP rather than to UDP or some other transport-layer protocol? <!-- NETWO-voEYl -->
+2. Suppose Host A sends Host B a TCP segment encapsulated in an IP datagram. When Host B receives the datagram, how does its network layer know it should pass the segment (i.e. the payload of the datagram) to TCP rather than to UDP or some other transport-layer protocol? <!-- NETWO-voEYl -->
 
-    <pre>
-    </pre>
+    <br>
+    <br>
+    <br>
+    <br>
 
-1. Suppose an application generates chunks of 40 bytes of data every 30 msec, and each chunk is sent over the network via TCP and IPv4. What percentage of each network-layer datagram will be overhead (i.e. protocol headers)? <!-- NETWO-9xysP -->
+3. Suppose an application generates chunks of 40 bytes of data every 30 msec, and each chunk is sent over the network via TCP and IPv4. What percentage of each network-layer datagram will be overhead (i.e. protocol headers)? <!-- NETWO-9xysP -->
 
-    <pre>
-
-
-    </pre>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 
 [Back to the top](#network-layer)
 
@@ -264,11 +279,14 @@ Example NAT:
 
 1. Consider a subnet with prefix 128.119.40.128/26. Give an example of one IP address (of form xxx.xxx.xxx.xxx) that can be assigned to this network. Suppose an ISP owns the block of addresses of the form 128.119.40.64/26. Suppose it wants to create four subnets from this block, with each block having the same number of IP addresses. What are the prefixes (of form a.b.c.d/x) for the four subnets? <!-- NETWO-52sqI -->
 
-    <pre>
-
-
-
-    </pre>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 
 [Back to the top](#network-layer)
 
@@ -371,17 +389,25 @@ Djikstra dry-run for the following example graph using source node $u$:
 
 4. Pick closest node not in $N^\prime$ (left as an exercise)
 
-    <pre>
-
-
-    </pre>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 
 3. Pick closest node not in $N^\prime$ (left as an exercise)
 
-    <pre>
-
-    
-    </pre>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 
 4. Pick closest node not in $N^\prime$ i.e. $z$
 
@@ -395,19 +421,27 @@ A slight enhancement to the above algorithm allows for tracking the *previous no
 
 1. True or false: When an OSPF route sends its link state information, it is sent only to the directly attached neighbors. Explain. <!-- NETWO-mEjrr -->
 
-    <pre>
-
-
-
-    </pre>
+    <br>
+    <br>
+    <br>
+    <br>
 
 1. Consider the following network. With the indicated link costs, uses Djikstra's shortes-path algorithm to compute the shortest path from $x$ to $u$, $w$, and $y$. <!-- NETWO-R6lfp -->
 
-    <pre>
-
-
-
-    </pre>
+    ![alt text](<Screenshot 2025-03-09 at 5.37.17 PM.png>)
+    
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 
 [Back to the top](#network-layer)
 
@@ -456,27 +490,24 @@ Example dry run:
 
      1. What is the initial distance vector at $z$?
 
-        <pre>
-
-
-
-        </pre>
+        <br>
+        <br>
+        <br>
+        <br>
 
      2. What is the updated distance vector at $z$ after it recives the initial distance vector from $x$?
 
-        <pre>
-
-
-
-        </pre>
+        <br>
+        <br>
+        <br>
+        <br>
 
     1. What is the updated distance vector at $z$ after it recives the initial distance vector from $v$?
 
-        <pre>
-
-
-
-        </pre>
+        <br>
+        <br>
+        <br>
+        <br>
 
 
 [Back to the top](#network-layer)
