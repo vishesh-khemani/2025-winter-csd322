@@ -1,6 +1,6 @@
 # Network Layer
 
-[(Up to Overview)](../index)
+[(Up to Overview)](../index.md)
 
 Recommended reading: Kurose chapters 4 and 5
 

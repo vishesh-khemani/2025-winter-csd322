@@ -1,6 +1,6 @@
 # Computer Networks and the Internet
 
-[(Up to Overview)](../index)
+[(Up to Overview)](../index.md)
 
 Recommended reading: Kurose Chapter 1
 

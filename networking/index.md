@@ -21,10 +21,12 @@ How the following “magical” things happen:
 
 ## Approach
 
-- [Computer Networks and the Internet](internet/index)
+- [Computer Networks and the Internet](internet/index.md)
 - Top-down networking stack
-    - [Application Layer](app-layer/index)
-    - [Transport Layer](transport-layer/index)
-    - [Network Layer](network-layer/index)
+    - [Application Layer](app-layer/index.md)
+    - [Transport Layer](transport-layer/index.md)
+    - [Network Layer](network-layer/index.md)
     - Link Layer
     - Physical Layer
+
+---
