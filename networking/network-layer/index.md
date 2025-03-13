@@ -13,6 +13,7 @@ Recommended reading: Kurose chapters 4 and 5
     - [How To Choose The Outgoing Link?](#how-to-choose-the-outgoing-link)
       - [Exercises](#exercises)
     - [IPv4](#ipv4)
+      - [IP on Wireshark](#ip-on-wireshark)
       - [Layering Examples](#layering-examples)
       - [Exercises](#exercises-1)
     - [Addressing](#addressing)
@@ -179,6 +180,10 @@ Example forwarding table:
   - removed in IPv6!
 - **Data**
   - typically, transport layer segment or network layer control msgs e.g. ICMP
+
+#### IP on Wireshark
+
+![](<Screenshot 2025-03-12 at 4.36.17 PM.png>)
 
 #### Layering Examples
 
