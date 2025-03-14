@@ -433,7 +433,7 @@ A slight enhancement to the above algorithm allows for tracking the *previous no
     <br>
     <br>
 
-1. Consider the following network. With the indicated link costs, uses Djikstra's shortes-path algorithm to compute the shortest path from $x$ to $u$, $w$, and $y$. <!-- NETWO-R6lfp -->
+1. Consider the following network. With the indicated link costs, uses Djikstra's shortest-path algorithm to compute the shortest path from $x$ to $u$, $w$, and $y$. <!-- NETWO-R6lfp -->
 
     ![alt text](<Screenshot 2025-03-09 at 5.37.17 PM.png>)
     
